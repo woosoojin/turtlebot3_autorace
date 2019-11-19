@@ -32,6 +32,7 @@ from move_base_msgs.msg import MoveBaseActionResult
 
 class DetectTunnel():
     def __init__(self):
+        # order from controller
         self.sub_tunnel_order = rospy.Subscriber('/detect/tunnel_order', UInt8, self.cbTunnelOrder, queue_size=1)
         self.sub_arrival_status = rospy.Subscriber("/move_base/result", MoveBaseActionResult, self.cbGetNavigationResult, queue_size=1)
         self.sub_odom = rospy.Subscriber('/odom', Odometry, self.cbOdom, queue_size=1)

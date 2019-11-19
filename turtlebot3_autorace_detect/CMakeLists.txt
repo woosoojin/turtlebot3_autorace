@@ -50,6 +50,7 @@ catkin_install_python(PROGRAMS
   nodes/detect_sign
   nodes/detect_traffic_light
   nodes/detect_tunnel
+  nodes/go
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

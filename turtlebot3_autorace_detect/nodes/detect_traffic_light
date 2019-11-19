@@ -31,6 +31,7 @@ from turtlebot3_autorace_detect.cfg import DetectTrafficLightParamsConfig
 
 class DetectTrafficLight():
     def __init__(self):
+        # it depends on color of light
         self.hue_red_l = rospy.get_param("~detect/lane/red/hue_l", 0)
         self.hue_red_h = rospy.get_param("~detect/lane/red/hue_h", 10)
         self.saturation_red_l = rospy.get_param("~detect/lane/red/saturation_l", 30)

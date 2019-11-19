@@ -371,6 +371,7 @@ class DetectLane():
             win_x_high = x_current + margin
 
             # Draw the windows on the visualization image
+            # (0, 255, 0): green 
             cv2.rectangle(out_img, (win_x_low, win_y_low), (win_x_high, win_y_high), (0, 255, 0), 2)
 
             # Identify the nonzero pixels in x and y within the window
@@ -413,16 +414,19 @@ class DetectLane():
 
         ploty = np.linspace(0, cv_image.shape[0] - 1, cv_image.shape[0])
 
+	# (0, 0, 255): blue
         if yellow_fraction > 3000:
             pts_left = np.array([np.flipud(np.transpose(np.vstack([self.left_fitx, ploty])))])
             cv2.polylines(color_warp_lines, np.int_([pts_left]), isClosed=False, color=(0, 0, 255), thickness=25)
 
+	# (255, 255 0): yellow
         if white_fraction > 3000:
             pts_right = np.array([np.transpose(np.vstack([self.right_fitx, ploty]))])
             cv2.polylines(color_warp_lines, np.int_([pts_right]), isClosed=False, color=(255, 255, 0), thickness=25)
         
         self.is_center_x_exist = True
 
+	# (0, 255, 255): skyblue
         if self.reliability_white_line > 50 and self.reliability_yellow_line > 50:   
             if white_fraction > 3000 and yellow_fraction > 3000:
                 centerx = np.mean([self.left_fitx, self.right_fitx], axis=0)
@@ -432,6 +436,7 @@ class DetectLane():
                 cv2.polylines(color_warp_lines, np.int_([pts_center]), isClosed=False, color=(0, 255, 255), thickness=12)
 
                 # Draw the lane onto the warped blank image
+		# (0, 255, 0): green
                 cv2.fillPoly(color_warp, np.int_([pts]), (0, 255, 0))
 
             if white_fraction > 3000 and yellow_fraction <= 3000:

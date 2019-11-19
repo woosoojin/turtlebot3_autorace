@@ -37,6 +37,7 @@ class CoreNodeController():
         self.CurrentMode = Enum('CurrentMode', 'idle lane_following traffic_light parking_lot level_crossing tunnel')
 
         # subscribes : status returned
+	    # publisher: turtlebot3_autorace_detect/nodes
         self.sub_parking_lot_stamped = rospy.Subscriber('/detect/parking_lot_stamped', UInt8, self.cbParkingLotStamped, queue_size=1)
         self.sub_level_crossing_stamped = rospy.Subscriber('/detect/level_crossing_stamped', UInt8, self.cbLevelCrossingStamped, queue_size=1)
         self.sub_tunnel_stamped = rospy.Subscriber('/detect/tunnel_stamped', UInt8, self.cbTunnelStamped, queue_size=1)

@@ -44,6 +44,7 @@ class DetectParking():
 
         self.sub_parking_finished = rospy.Subscriber('/control/parking_finished', UInt8, self.cbParkingFinished, queue_size = 1)
 
+        # how to get and send image information
         if self.sub_image_type == "compressed":
             # subscribes compressed image
             self.sub_image_original = rospy.Subscriber('/detect/image_input/compressed', CompressedImage, self.cbGetImage, queue_size = 1)
@@ -58,12 +59,15 @@ class DetectParking():
             # publishes parking image in raw type
             self.pub_image_parking = rospy.Publisher('/detect/image_output', Image, queue_size = 1)
 
+        # publish stamped and start info
         self.pub_parking_lot_return = rospy.Publisher('/detect/parking_lot_stamped', UInt8, queue_size=1)
 
         self.pub_parking_start = rospy.Publisher('/control/parking_start', UInt8, queue_size = 1)
 
+        # control velocity
         self.pub_max_vel = rospy.Publisher('/control/max_vel', Float64, queue_size = 1)
 
+        # enum
         self.StepOfParkingLot = Enum('StepOfParkingLot', 'searching_parking_sign searching_parking_point_line searching_nonreserved_parking_area parking')
 
         self.is_obstacle_detected = True

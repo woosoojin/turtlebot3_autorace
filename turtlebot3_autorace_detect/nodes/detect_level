@@ -33,14 +33,16 @@ from cv_bridge import CvBridge, CvBridgeError
 from dynamic_reconfigure.server import Server
 from turtlebot3_autorace_detect.cfg import DetectLevelParamsConfig
 
+# calculate distance from bar through line
 def fnCalcDistanceDot2Line(a, b, c, x0, y0):
     distance = abs(x0*a + y0*b + c)/math.sqrt(a*a + b*b)
     return distance
 
+# calculate distance from bar through dot
 def fnCalcDistanceDot2Dot(x1, y1, x2, y2):
     distance = math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
     return distance
-
+ 
 def fnArrangeIndexOfPoint(arr):
     new_arr = arr[:]
     arr_idx = [0] * len(arr)
@@ -88,6 +90,7 @@ def fnCheckDistanceIsEqual(point1, point2, point3):
         return False
 
 class DetectLevel():
+    # information about red colored bar
     def __init__(self):
         self.hue_red_l = rospy.get_param("~detect/level/red/hue_l", 90)
         self.hue_red_h = rospy.get_param("~detect/level/red/hue_h", 180)
@@ -96,6 +99,7 @@ class DetectLevel():
         self.lightness_red_l = rospy.get_param("~detect/level/red/lightness_l", 128)
         self.lightness_red_h = rospy.get_param("~detect/level/red/lightness_h", 255)
 
+        # export AUTO_DT_CALIB = action
         self.is_calibration_mode = rospy.get_param("~is_detection_calibration_mode", False)
         if self.is_calibration_mode == True:
             srv_detect_lane = Server(DetectLevelParamsConfig, self.cbGetDetectLevelParam)
